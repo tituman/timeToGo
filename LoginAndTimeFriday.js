@@ -1,5 +1,8 @@
 javascript:
 /*
+* v6.1
+* added work minus 10h
+*
 * v6
 * by lena hd
 * @pnd fixed time for week and remaining for friday
@@ -32,7 +35,7 @@ javascript:
 */
 /* personal number and password */
 var persNumber = '7846';
-var persPass = 'KEbuchen';
+var persPass = 'KEPASS';
 var times = new Array();
 var kommenFound = false;
 var GMfound = false;
@@ -86,11 +89,14 @@ function addWoche(){
 	var effectiveLinearTime = currentLinearTime - linearInTime -lunchPeriod;
 	var workedHours = parseInt(effectiveLinearTime/60, 10);
 	var workedMinutes = effectiveLinearTime - workedHours*60;
-	if (workedMinutes < 10){
-		workedMinutes = "0" + (workedMinutes);
-	};
+	if (workedMinutes < 10){workedMinutes = "0" + (workedMinutes);};
 	sStringz = (sStringz) + "\n\neffective work time until now: " + (workedHours) + ":" + (workedMinutes); 
-	
+	/* es gilt: 10h == 600min == max work allowed*/
+	var timeMinus10Linear = (10*60) - effectiveLinearTime;
+	var workedHoursMinus10 = parseInt(timeMinus10Linear/60, 10);
+	var workedMinutesMinus10 = timeMinus10Linear - workedHoursMinus10*60;
+	if(workedMinutesMinus10 < 10) { workedMinutesMinus10 = "0" + (workedMinutesMinus10);};
+	sStringz = (sStringz) + "\nwork time until 10h: " + (workedHoursMinus10) + ":" + (workedMinutesMinus10); 
 
 	paintCurrentTimeInTable(innerDoc.getElementById("table1"), my1date);alert(sStringz);
 }
@@ -213,7 +219,7 @@ function calc(){
 	} else {
 		var lunchInHour = 0;
 		var lunchInMinutes = 0;
-	}/* normal day: 7h + 50minnormal friday: 7h 20minshortFR weekDay: 8h + 30minshortFR friday; 4h + 30min*/
+	}/* normal day: 7h50 normal friday: 7h20 shortFR weekDay: 8h30 shortFR friday; 4h30*/
 	var outHour = 7;
 	var outHour_ShortFR = isFriday() ? 4 : 8;
 	var outMinutes = isFriday() ? 20 : 50;
