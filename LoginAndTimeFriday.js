@@ -1,5 +1,8 @@
 javascript:
 /*
+* v6.20
+* added average 
+*
 * v6.1
 * added work minus 10h
 *
@@ -97,8 +100,20 @@ function addWoche(){
 	var workedMinutesMinus10 = timeMinus10Linear - workedHoursMinus10*60;
 	if(workedMinutesMinus10 < 10) { workedMinutesMinus10 = "0" + (workedMinutesMinus10);};
 	sStringz = (sStringz) + "\nwork time until 10h: " + (workedHoursMinus10) + ":" + (workedMinutesMinus10); 
-
-	paintCurrentTimeInTable(innerDoc.getElementById("table1"), my1date);alert(sStringz);
+/* add average per day */
+	/* sun = 0, mon = 1, fri = 5 */
+	if ((my1date.getDay() > 1) || (my1date.getDay() < 5)) {
+		var avgLinear = weekstimeMinutes / (my1date.getDay()-1);
+		var avgHours = parseInt(avgLinear/60, 10);
+		var avgMinutes = Math.floor(avgLinear - (avgHours * 60));
+		if (avgMinutes < 10) {
+			avgMinutes = "0"+avgMinutes;
+		};
+		sStringz = (sStringz) + "\naverage worktime per day: " + (avgHours) + ":" + (avgMinutes);
+	}
+	
+	paintCurrentTimeInTable(innerDoc.getElementById("table1"), my1date);
+	alert(sStringz);
 }
 function paintCurrentTimeInTable(table){
 	/* find out the current linear time in minutes in 15min chunks and add constant 2 because of the same as above */
