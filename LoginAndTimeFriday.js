@@ -49,6 +49,7 @@ var inHour;
 var inMinutes;
 var timeWorked;
 var timeWorked_ShortFR;
+var timeWorked10h;
 var dateText;
 var misids;
 var currentLinearTime;
@@ -84,7 +85,9 @@ function addWoche(){
 		sStringz = (sStringz) + "\ntime to leave adjusted for week: " + (timeToLeaveAdjusted);
 	} else {
 		sStringz = (sStringz) + "\ntime to leave adjusted for Short Friday: " + (timeWorked_ShortFR);
-	}/* add current time to show current worked time till now */
+	}
+	sStringz = (sStringz) + "\nMAX time to leave (10h): " + (timeWorked10h);
+	/* add current time to show current worked time till now */
 	var my1date = new Date();
 	var current_hourInMins = my1date.getHours() * 60;
 	var current_minute = my1date.getMinutes();
@@ -235,6 +238,8 @@ function calc(){
 		var lunchInHour = 0;
 		var lunchInMinutes = 0;
 	}/* normal day: 7h50 normal friday: 7h20 shortFR weekDay: 8h30 shortFR friday; 4h30*/
+	var outHour10h = 10;
+	var outMinutes10h = 0;
 	var outHour = 7;
 	var outHour_ShortFR = isFriday() ? 4 : 8;
 	var outMinutes = isFriday() ? 20 : 50;
@@ -244,17 +249,23 @@ function calc(){
 	var linearLunchInTime = 60*(lunchInHour)+(lunchInMinutes);
 	var linearOutTime = 60*(outHour)+(outMinutes);
 	var linearOutTime_ShortFR = 60*(outHour_ShortFR)+(outMinutes_ShortFR);
+	var linearOutTime10h = 60*(outHour10h)+(outMinutes10h);
 	lunchPeriod = linearLunchInTime-linearLunchOutTime+12;
 	var linearMinutesWorked = linearInTime+(linearOutTime+lunchPeriod);
 	var linearMinutesWorked_ShortFR = linearInTime+(linearOutTime_ShortFR+lunchPeriod);
+	var linearMinutesWorked10h = linearInTime+(linearOutTime10h+lunchPeriod);
 	var hoursWorked = parseInt(linearMinutesWorked/60, 10);
 	var minutesWorked = linearMinutesWorked-(hoursWorked*60);
 	if (minutesWorked < 10){minutesWorked = "0"+minutesWorked;} 
 	var hoursWorked_ShortFR = parseInt(linearMinutesWorked_ShortFR/60, 10);
 	var minutesWorked_ShortFR = linearMinutesWorked_ShortFR-(hoursWorked_ShortFR*60);
 	if (minutesWorked_ShortFR < 10){minutesWorked_ShortFR = "0"+minutesWorked_ShortFR;}
+	var hoursWorked10h = parseInt(linearMinutesWorked10h/60, 10);
+	var minutesWorked10h = linearMinutesWorked10h-(hoursWorked10h*60);
+	if (minutesWorked10h < 10){minutesWorked10h = "0"+minutesWorked10h;}
 	timeWorked = hoursWorked+":"+minutesWorked;
 	timeWorked_ShortFR = hoursWorked_ShortFR+":"+minutesWorked_ShortFR;
+	timeWorked10h =  hoursWorked10h+":"+minutesWorked10h;
 	if(inMinutes < 10) {inMinutes = "0"+inMinutes;}
 }
 doIt();
