@@ -1,5 +1,8 @@
 javascript:
 /*
+* v6.21
+* added how much hours each option means
+*
 * v6.20
 * added average 
 *
@@ -78,13 +81,15 @@ function addWoche(){
 	var goalMins = goal - (goalHours * 60);
 	if (goalMins < 10) {
 		goalMins = "0"+goalMins;
-	};
+	};/* normal day: 7h50 normal friday: 7h20 shortFR weekDay: 8h30 shortFR friday; 4h30*/
 	var timeToLeaveAdjusted = goalHours+":"+goalMins;
-	var sStringz = "K: " + (inHour) +":"+ (inMinutes) + "\nlunched: " + (lunchPeriod-12) + "\n\ntime to leave: " + (timeWorked);
+	var sStringz = "K: " + (inHour) +":"+ (inMinutes) + "\nlunched: " + (lunchPeriod-12);
 	if (isFriday()) {
-		sStringz = (sStringz) + "\ntime to leave adjusted for week: " + (timeToLeaveAdjusted);
+		sStringz = (sStringz) + "\n\ntime to leave (7:20): " + (timeWorked);
+		sStringz = (sStringz) + "\ntime to leave adjusted for week (38.5 - worked time this week): " + (timeToLeaveAdjusted);
 	} else {
-		sStringz = (sStringz) + "\ntime to leave adjusted for Short Friday: " + (timeWorked_ShortFR);
+		sStringz = (sStringz) + "\n\ntime to leave (7:50): " + (timeWorked);
+		sStringz = (sStringz) + "\ntime to leave adjusted for Short Friday (8:30): " + (timeWorked_ShortFR);
 	}
 	sStringz = (sStringz) + "\nMAX time to leave (10h): " + (timeWorked10h);
 	/* add current time to show current worked time till now */
