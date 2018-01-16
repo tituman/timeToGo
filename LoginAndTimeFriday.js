@@ -110,7 +110,7 @@ function addWoche(){
 	sStringz = (sStringz) + "\nwork time until 10h: " + (workedHoursMinus10) + ":" + (workedMinutesMinus10); 
 /* add average per day */
 	/* sun = 0, mon = 1, fri = 5 */
-	if ((my1date.getDay() > 1) || (my1date.getDay() < 5)) {
+	if ((my1date.getDay() > 1) && (my1date.getDay() < 5)) {
 		var avgLinear = weekstimeMinutes / (my1date.getDay()-1);
 		var avgHours = parseInt(avgLinear/60, 10);
 		var avgMinutes = Math.floor(avgLinear - (avgHours * 60));
