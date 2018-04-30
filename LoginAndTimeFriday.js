@@ -1,5 +1,8 @@
 javascript:
 /*
+* v6.22
+* recent pze update broke it a little bit, pnd to the rescue
+*
 * v6.21
 * added how much hours each option means
 *
@@ -68,11 +71,11 @@ function addWoche(){
 	var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
 	var cnt = 0;
 	var startCounting = false;
-	var table = innerDoc.getElementsByClassName("dataTables_scrollFootInner");
+	var table = innerDoc.getElementsByClassName("weekmodtblcellinfo");
 	if (table == null) {
 		alert('table not found!');
 	}
-	var weekstime = table[0].textContent || table[0].innerText;
+	var weekstime = table[table.length - 1].textContent || table[table.length - 1].innerText;
 	weekstime = weekstime.replace(/(\r\n|\n|\r)/gm,"");
 	weekstime = weekstime.split('Summe')[1];
 	var weekstimeMinutes = Math.floor(Number(weekstime)*60);
